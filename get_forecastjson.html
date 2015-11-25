@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+
+var w = window.innerWidth;
+var h = window.innerHeight;
+
+var data = getData();
+function getData(){
+    var apiKey = '4d03ac57129b7f9728c611ff41a9a6ec';
+    var url = 'https://api.forecast.io/forecast/';
+    var lati = 44.8333;
+    var longi = -0.6333;
+    var data;
+    $.getJSON(url + apiKey + "/" + lati + "," + longi + "?callback=?", function(data) {
+        console.log(data);
+    });
+    return data;
+}
+
+var fileSystem=new ActiveXObject("Scripting.FileSystemObject");
+var monfichier=fileSystem.OpenTextFile("meteodata.txt", 2 ,true);
+monfichier.WriteLine(data);
+monFichier.Close();
+
+</script>
