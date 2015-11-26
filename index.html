@@ -60,30 +60,43 @@
                 </span>
             </div>
         </div>
-        <!-- Portfolio Item Heading -->
+        <!-- heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Météo du jour
+                <h1 class="page-header">Météo
                     <small id="jour-name"></small>
                 </h1>
             </div>
         </div>
         <!-- /.row -->
 
-        <!-- Portfolio Item Row -->
+        <!-- row -->
         <div class="row">
-
-            <div class="col-md-8">
-                <div class="jumbotron">
-                    <div class="container">
-                      <h1>Hello, world!</h1>
-                      <p></p>
-                      <p></p>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Aujourd'hui</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-1" id="day-icon"></div>
+                                <div class="col-lg-3" id="day-summary"></div>
+                                <div class="col-lg-5"></div>
+                                <div class="col-lg-3" id="day-temp"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-1" id="day-wind"></div>
+                                <div class="col-lg-1" id="day-pluie"></div>
+                                <div class="col-lg-7"></div>
+                                <div class="col-lg-3" id="day-visi"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4">
                 <h3>Meteo Description</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
                 <h3>Meteo Details</h3>
@@ -177,25 +190,33 @@
     var date = new Date();
     
 $(document).ready(function() {
-    $('#jour-name').html(jour[date.getDay()]+" "+date.getDate()+" "+mois[date.getMonth()]);
-
+    $('#jour-name').html(jour[date.getDay()-1]+" "+date.getDate()+" "+mois[date.getMonth()-1]);
     $.getJSON('data/meteodata.json', function(data) {
         //console.log(data);
-        var currently = data.currently;
-        console.log(currently);
+        var today = data.daily.data[0];
+        //console.log(today);
+        //var currently = data.currently;
+        $('#day-icon').html('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
+                            '<image x="5" y="5" width="30" height="30" xlink:href="fonts/SVG/'+today.icon+'.svg" />'+
+                            '</svg>');
+        $('#day-summary').html(today.summary);
+        $('#day-temp').html('<h3>'+today.temperature+' °C</h3> <small> Ressenti : '+today.apparentTemperature+'°C');
+        //console.log(today);
     });
-
-
 });
 
 
 
-// function getData(){
-//     var datas
-//     $.getJSON('data/meteodata.json', function(data) {
-//         datas = data;
-//     });
-//     return datas
-// }
-
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  //var sec = a.getSeconds();
+  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min ;//+ ':' + sec ;
+  return time;
+}
 </script>
