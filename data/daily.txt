@@ -1,6 +1,4 @@
 "time": 1448492400,
-"summary": "Mostly cloudy throughout the day.",
-"icon": "partly-cloudy-day",
 "sunriseTime": 1448522098,
 "sunsetTime": 1448555247,
 "moonPhase": 0.53,
@@ -9,6 +7,20 @@
 "precipIntensityMaxTime": 1448492400,
 "precipProbability": 0.16,
 "precipType": "rain",
+"dewPoint": 8.11,
+"humidity": 0.85,
+
+"windBearing": 341,
+"visibility": 9.99,
+"cloudCover": 0.75,
+"pressure": 1021.02,
+"ozone": 263.62
+
+
+
+
+
+
 "temperatureMin": 6.42,
 "temperatureMinTime": 1448575200,
 "temperatureMax": 14.61,
@@ -17,11 +29,6 @@
 "apparentTemperatureMinTime": 1448575200,
 "apparentTemperatureMax": 14.61,
 "apparentTemperatureMaxTime": 1448539200,
-"dewPoint": 8.11,
-"humidity": 0.85,
+"summary": "Mostly cloudy throughout the day.",
+"icon": "partly-cloudy-day",
 "windSpeed": 13.53,
-"windBearing": 341,
-"visibility": 9.99,
-"cloudCover": 0.75,
-"pressure": 1021.02,
-"ozone": 263.62

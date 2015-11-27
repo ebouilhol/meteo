@@ -80,16 +80,21 @@
                     <div class="panel-body">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-lg-1" id="day-icon"></div>
-                                <div class="col-lg-3" id="day-summary"></div>
-                                <div class="col-lg-5"></div>
-                                <div class="col-lg-3" id="day-temp"></div>
+                                <div class="col-lg-2" id="day-icon"></div>
+                                <div class="col-lg-5" id="day-summary"></div>
+                                <div class="col-lg-5" id="day-avg-temp"></div>
                             </div>
+                            <hr>
                             <div class="row">
-                                <div class="col-lg-1" id="day-wind"></div>
-                                <div class="col-lg-1" id="day-pluie"></div>
-                                <div class="col-lg-7"></div>
-                                <div class="col-lg-3" id="day-visi"></div>
+                                <div class="col-lg-3" id="day-wind"></div>
+                                <div class="col-lg-4" id="day-pluie"></div>
+                                <div class="col-lg-5" id="day-min-temp"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4" id="day-toto"></div>
+                                <div class="col-lg-3" id="day-pluie"></div>
+                                <div class="col-lg-5" id="day-max-temp"></div>
                             </div>
                         </div>
                     </div>
@@ -196,27 +201,77 @@ $(document).ready(function() {
         var today = data.daily.data[0];
         //console.log(today);
         //var currently = data.currently;
-        $('#day-icon').html('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
-                            '<image x="5" y="5" width="30" height="30" xlink:href="fonts/SVG/'+today.icon+'.svg" />'+
+        $('#day-icon').html('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
+                            '<image x="" y="-5" width="50" height="50" xlink:href="fonts/SVG/'+today.icon+'.svg" />'+
                             '</svg>');
         $('#day-summary').html(today.summary);
-        $('#day-temp').html('<h3>'+today.temperature+' °C</h3> <small> Ressenti : '+today.apparentTemperature+'°C');
-        //console.log(today);
+
+
+
+        $('#day-avg-temp').html('<h3><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                                '<image x="0" y="" width="30" height="30" xlink:href="fonts/SVG/avg-temp.svg" />'+
+                                '</svg><small style="font-size:30px">'+avgTempDay(data.hourly)+'°C</small> <small style="font-size:10px">Ressenti : '+avgTempRessentiDay(data.hourly)+'°C</small></h3>');
+
+        $('#day-min-temp').html('<h3><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" width="20">'+
+                                '<image x="0" y="0" width="20" height="20" xlink:href="fonts/SVG/min-temp.svg" /></svg>Min : '+
+                                 today.temperatureMin+'°C a '+timeConverterHour(today.apparentTemperatureMinTime)+'0h</small></h3>');
+
+        $('#day-max-temp').html('<h3><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" width="20">'+
+                                '<image x="0" y="0" width="20" height="20" xlink:href="fonts/SVG/min-temp.svg" /></svg>Max : '+
+                                 today.temperatureMax+'°C a '+timeConverterHour(today.apparentTemperatureMaxTime)+'0h</small></h3>');
+
+        $('#day-wind').html('<h3><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" width="20">'+
+                                '<image x="0" y="0" width="20" height="20" xlink:href="fonts/SVG/'+getIconWindBearing(today.windBearing)+'" /></svg> '+today.windSpeed+'</small>'+
+                                '<small style="font-size:10px"> Km/h </small></h3>');
+
     });
 });
 
 
 
+function avgTempDay(hourly){
+    var temp=0;
+    for (var i=0; i<24; i++){
+        temp += hourly.data[i].temperature;
+    }
+    return Math.round((temp/24)*10)/10;
+}
+
+
+function avgTempRessentiDay(hourly){
+    var temp=0;
+    for (var i=0; i<24; i++){
+        temp += hourly.data[i].apparentTemperature;
+    }
+    return Math.round((temp/24)*10)/10;
+}
+
+
+
+function timeConverterHour(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var time = hour + ':' + min ;
+    return time;
+}
+
+function getIconWindBearing(windBearing){
+    var nb =  Math.round(windBearing/45);
+    return 'wind-'+(nb-1)+'.svg';
+
+}
+
+
 function timeConverter(UNIX_timestamp){
-  var a = new Date(UNIX_timestamp * 1000);
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  //var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min ;//+ ':' + sec ;
-  return time;
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    //var sec = a.getSeconds();
+    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min ;//+ ':' + sec ;
 }
 </script>
