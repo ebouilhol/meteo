@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Meteo</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../css/meteo.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Modal -->
+<div id="dayXmodal" class="modal fade" role="dialog"> </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Meteo</a>
+                    </li>
+                    <!--<li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>-->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div id="custom-search-input">
+            <div class="input-group col-md-12">
+                <input type="text" class="form-control input-lg" placeholder="Search a city" />
+                <span class="input-group-btn">
+                    <button class="btn btn-info btn-lg" type="button">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <!-- heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Météo Ussel
+                    <small id="jour-name"></small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Aujourd'hui</h3>
+                    </div>
+                    <div class="panel-body"> <!-- style="background-color:rgba(0,255,255,0.2)">  -->
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-3" id="day-icon"></div>
+                                <div class="col-lg-4" id="day-summary"></div>
+                                <div class="col-lg-5" id="day-avg-temp"></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-3" id="day-wind"></div>
+                                <div class="col-lg-4" id="day-pluie"></div>
+                                <div class="col-lg-5" id="day-pression"></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-3" id="day-sunrise"></div>
+                                <div class="col-lg-4" id="day-sunset"></div>
+                                <div class="col-lg-5" id="day-dewpoint"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                 <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Prochaines 48 Heures</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div style="overflow-x:scroll; max-height:350px" id ="48h"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <!-- Related Projects Row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">7 prochains jours</h3>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div id="1" class="panel panel-default">
+                    <div class="panel-heading" id="jour1-h"></div>
+                    <div class="panel-body" id="jour1-b"></div>
+                </div>
+               
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div id="2" class="panel panel-default">
+                    <div class="panel-heading" id="jour2-h"></div>
+                    <div class="panel-body" id="jour2-b"></div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div id="3" class="panel panel-default">
+                    <div class="panel-heading" id="jour3-h"></div>
+                    <div class="panel-body" id="jour3-b"></div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div id="4" class="panel panel-default">
+                    <div class="panel-heading" id="jour4-h"></div>
+                    <div class="panel-body" id="jour4-b"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-xs-6">
+                <div id="5" class="panel panel-default">
+                    <div class="panel-heading" id="jour5-h"></div>
+                    <div class="panel-body" id="jour5-b"></div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div id="6" class="panel panel-default">
+                    <div class="panel-heading" id="jour6-h"></div>
+                    <div class="panel-body" id="jour6-b"></div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-6">
+                <div id="7" class="panel panel-default">
+                    <div class="panel-heading" id="jour7-h"></div>
+                    <div class="panel-body" id="jour7-b"></div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Meteo Bichon 2016</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
+<script>
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var jour = new Array( "Dimanche","Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
+    var mois = new Array( "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre" );
+    var date = new Date();
+    
+$(document).ready(function() {
+    $('#jour-name').html(jour[date.getDay()]+" "+date.getDate()+" "+mois[date.getMonth()-1]);
+    $.getJSON('../data/meteodataUssel.json', function(data) {
+        var today = data.daily.data[0];
+        //console.log(timeConverterDay(today.time))
+        var hourly = data.hourly;
+
+        //METEO DU JOUR        
+        $('#day-icon').html('<h3><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
+                            '<image x="" y="0" width="50" height="50" xlink:href="../fonts/SVG/'+today.icon+'.svg" />'+
+                            '</svg></small></h3>');
+        $('#day-icon').append('<h3><small style="font-size:10px">'+getCouverture(today.cloudCover));
+
+        $('#day-summary').html('<h3><small>'+today.summary+'</small></h3><h3><small style="font-size:10px">Visibilité : '+today.visibility+' Km</small></h3>');
+
+
+        $('#day-avg-temp').html('<h3><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                                '<image x="0" y="0" width="30" height="30" xlink:href="../fonts/SVG/avg-temp.svg" />'+
+                                '</svg><small style="font-size:30px">'+avgTempDay(data.hourly)+'°C</small> <small style="font-size:10px">Ressenti : '+avgTempRessentiDay(data.hourly)+'°C</small></h3>');
+
+        $('#day-avg-temp').append('<h5><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="10" width="10">'+
+                                '<image x="0" y="0" width="10" height="10" xlink:href="../fonts/SVG/min-temp.svg" /></svg>Min : '+
+                                 today.temperatureMin+'°C a '+timeConverterHour(today.apparentTemperatureMinTime)+'0h</small></h5>');
+
+        $('#day-avg-temp').append('<h5><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="10" width="10">'+
+                                '<image x="0" y="0" width="10" height="10" xlink:href="../fonts/SVG/min-temp.svg" /></svg>Max : '+
+                                 today.temperatureMax+'°C a '+timeConverterHour(today.apparentTemperatureMaxTime)+'0h</small></h5>');
+
+        $('#day-wind').html('<h3><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                                '<image x="0" y="0" width="30" height="30" xlink:href="../fonts/SVG/'+getIconWindBearing(today.windBearing)+
+                                '" /></svg> '+today.windSpeed+'</small><small style="font-size:10px"> Km/h </small></h3>');
+
+        $('#day-pluie').html('<h3><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                                '<image x="0" y="0" width="30" height="30" xlink:href="../fonts/SVG/parapluie.svg" /></svg>'+
+                                (today.precipProbability*100)+'%</small><small style="font-size:10px"> A '+timeConverterHour(today.precipIntensityMaxTime)+
+                                '</small></h3>');
+
+        $('#day-pression').html('<h4><small>Baromètre : '+today.pressure+'</small><small style="font-size:10px"> mmHg </small></h4>');
+        $('#day-pression').append('<h4><small>Humidité : '+(today.humidity*100)+'</small><small style="font-size:10px">%</small></h4>');
+
+        $('#day-sunrise').html('<h4><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                                 '<image x="0" y="10" width="30" height="30" xlink:href="../fonts/SVG/sunrise.svg" /></svg> '+
+                                 timeConverterHour(today.sunriseTime)+'</small><small style="font-size:10px">h</small></h4>');
+
+        $('#day-sunset').html('<h4><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                                 '<image x="0" y="10" width="30" height="30" xlink:href="../fonts/SVG/sunset.svg" /></svg> '+
+                                 timeConverterHour(today.sunsetTime)+'</small><small style="font-size:10px">h</small></h4>');
+
+        $('#day-dewpoint').html('<h4><small>Point de rosée : '+(today.dewPoint)+'</small><small style="font-size:10px">°C</small></h4>');
+        $('#day-dewpoint').append('<h4><small>'+getLuneName(today.moonPhase)+'</small></h4>');
+
+
+        //METEO 48H
+        var temp = '<div class="container-fluid">';
+        for (var i=0; i<48; i++){
+            console.log(tradPrecType(hourly.data[i].precipType));
+            temp += ''+
+                '<div class="row" style="'+getHourColor(hourly.data[i].icon)+'">'+
+                    '<div class="col-lg-3"><h5><small  style="font-size:18px;vertical-align:center" >'+
+                    timeConverterHour(hourly.data[i].time)+'0h</small></h5></div>'+
+                    '<div class="col-lg-4"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
+                        '<image x="0" y="0" width="50" height="50" xlink:href="../fonts/SVG/'+hourly.data[i].icon+'.svg" />'+
+                        '</svg>'+
+                        '<br>'+
+                        '<h6><small style="font-size:12px">'+(tradPrecType(hourly.data[i].precipType))+' '+(hourly.data[i].precipProbability*100)+'%</small></h6>'+
+                    '</div>'+
+                    '<div class="col-lg-5"><h5><small  style="font-size:18px;vertical-align:center" >'+hourly.data[i].temperature+' °C </small></h5>'+
+                        '<small style="font-size:10px">Ressenti : '+hourly.data[i].apparentTemperature+'°C</small></h3>'+
+                    '</div>'+
+                '</div>'+
+                '<hr>';
+        }
+        temp += '</div>';
+        $('#48h').html(temp);
+
+
+
+
+        // 7 PROCHAINS JOURS
+        for (var i=1 ; i<8 ; i++){
+            var daily  = data.daily.data[i];
+            $('#jour'+i+'-h').html('<h6><small style="font-size:20px">'+timeConverterDay(daily.time)+'</small></h6>');
+            $('#jour'+i+'-b').html('<div class="container-fluid"><div class="row"><div class="col-lg-4">'+
+                '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
+                '<image x="" y="0" width="50" height="50" xlink:href="../fonts/SVG/'+daily.icon+'.svg" />'+
+                '</svg></div>'+
+                '<div class="col-lg-8"><h4><small style="font-size:15px">'+daily.summary+'</small></h4></div></div></div>');
+
+            $('#jour'+i+'-b').append('<h3><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" width="20">'+
+                                    '<image x="0" y="0" width="20" height="20" xlink:href="../fonts/SVG/min-temp.svg" /></svg>Min : '+
+                                     daily.temperatureMin+'°C a '+timeConverterHour(daily.apparentTemperatureMinTime)+'0h</small></h3>');
+            $('#jour'+i+'-b').append('<h3><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20" width="20">'+
+                                    '<image x="0" y="0" width="20" height="20" xlink:href="../fonts/SVG/min-temp.svg" /></svg>Max : '+
+                                     daily.temperatureMax+'°C a '+timeConverterHour(daily.apparentTemperatureMaxTime)+'0h</small></h3>');
+        }
+    });
+});
+
+
+$(document).on("click", "#1", function(e){
+    var id = $(this).attr('id');
+    $.getJSON('data/meteodataUssel.json', function(data) {
+        var day = data.daily.data[id];
+        constructDailyModal(day)
+    });
+});
+$(document).on("click", "#2", function(e){
+    var id = $(this).attr('id');
+    $.getJSON('data/meteodataUssel.json', function(data) {
+        var day = data.daily.data[id];
+        constructDailyModal(day)
+    });
+});
+$(document).on("click", "#3", function(e){
+    var id = $(this).attr('id');
+    $.getJSON('data/meteodataUssel.json', function(data) {
+        var day = data.daily.data[id];
+        constructDailyModal(day)
+    });
+});
+$(document).on("click", "#4", function(e){
+    var id = $(this).attr('id');
+    $.getJSON('data/meteodataUssel.json', function(data) {
+        var day = data.daily.data[id];
+        constructDailyModal(day)
+    });
+});
+$(document).on("click", "#5", function(e){
+    var id = $(this).attr('id');
+    $.getJSON('data/meteodataUssel.json', function(data) {
+        var day = data.daily.data[id];
+        constructDailyModal(day)
+    });
+});
+$(document).on("click", "#6", function(e){
+    var id = $(this).attr('id');
+    $.getJSON('data/meteodataUssel.json', function(data) {
+        var day = data.daily.data[id];
+        constructDailyModal(day)
+    });
+});
+$(document).on("click", "#7", function(e){
+    var id = $(this).attr('id');
+    $.getJSON('data/meteodataUssel.json', function(data) {
+        var day = data.daily.data[id];
+        constructDailyModal(day)
+    });
+});
+
+function constructDailyModal (today){
+    if (typeof today.visibility === 'undefined') { 
+        today.visibility=">10";
+    }
+
+var modal = ''+
+'<div class="modal-dialog">'+
+    '<!-- Modal content-->'+
+    '<div class="modal-content">'+
+        //HEADER
+        '<div class="modal-header">'+
+            '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+            '<h3 class="modal-title">'+timeConverterDay(today.time)+'</h3>'+
+        '</div>'+
+        //BODY
+        '<div class="modal-body">'+
+            '<div class="row">'+
+                '<div class="col-lg-3" id="day-icon">'+
+                    '<h3>'+
+                    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
+                    '<image x="" y="0" width="50" height="50" xlink:href="../fonts/SVG/'+today.icon+'.svg" />'+
+                    '</svg></h3>'+
+                    '<h3><small style="font-size:15px">'+getCouverture(today.cloudCover)+''+
+                '</div>'+
+                '<div class="col-lg-4" id="day-summary">'+
+                    '<h3><small style="font-size:15px">'+today.summary+'</small></h3>'+
+                    '<h3><small style="font-size:15px">Visibilité : '+today.visibility+' Km</small></h3>'+
+                '</div>'+
+                '<div class="col-lg-5" id="day-avg-temp">'+
+                    '<h3><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                    '<image x="0" y="0" width="30" height="30" xlink:href="../fonts/SVG/avg-temp.svg" />'+
+                    '</svg><small style="font-size:30px">'+(Math.round((today.temperatureMin+today.temperatureMax)/2)/10)+
+                    '°C</small> <small style="font-size:13px"> Ressenti : '+(Math.round((today.apparentTemperatureMin+today.apparentTemperatureMax)/2)/10)+
+                    '°C</small></h3>'+
+                    '<h4><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="10" width="10">'+
+                    '<image x="0" y="0" width="10" height="10" xlink:href="../fonts/SVG/min-temp.svg" /></svg>Min : '+
+                    today.temperatureMin+'°C a '+timeConverterHour(today.apparentTemperatureMinTime)+'0h</small></h4>'+
+                    '<h4><small><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="10" width="10">'+
+                    '<image x="0" y="0" width="10" height="10" xlink:href="../fonts/SVG/min-temp.svg" /></svg>Max : '+
+                    today.temperatureMax+'°C a '+timeConverterHour(today.apparentTemperatureMaxTime)+'0h</small></h4>'+
+                '</div>'+
+            '</div>'+
+            '<hr>'+
+            '<div class="row">'+
+                '<div class="col-lg-3" id="day-wind">'+
+                    '<h3><small style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                    '<image x="0" y="0" width="30" height="30" xlink:href="../fonts/SVG/'+getIconWindBearing(today.windBearing)+'" /></svg> '+
+                    today.windSpeed+'</small><small style="font-size:10px"> Km/h </small></h3>'+
+                '</div>'+
+                '<div class="col-lg-4" id="day-pluie">'+
+                    '<h3><small style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                    '<image x="0" y="0" width="30" height="30" xlink:href="../fonts/SVG/parapluie.svg" /></svg>'+
+                    Math.round(today.precipProbability*100)+'%</small><small style="font-size:10px"> A '+timeConverterHour(today.precipIntensityMaxTime)+
+                    '</small></h3>'+
+                '</div>'+
+                '<div class="col-lg-5" id="day-pression">'+
+                    '<h4><small style="font-size:15px">Baromètre : '+today.pressure+'</small><small style="font-size:13px"> mmHg </small></h4>'+
+                    '<h4><small style="font-size:15px">Humidité : '+Math.round(today.humidity*100)+'</small><small style="font-size:13px">%</small></h4>'+
+                '</div>'+
+            '</div>'+
+            '<hr>'+
+            '<div class="row">'+
+                '<div class="col-lg-3" id="day-sunrise">'+
+                    '<h4><small style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                    '<image x="0" y="10" width="30" height="30" xlink:href="../fonts/SVG/sunrise.svg" /></svg> '+
+                    timeConverterHour(today.sunriseTime)+'</small><small style="font-size:13px">h</small></h4>'+
+                '</div>'+
+                '<div class="col-lg-4" id="day-sunset">'+
+                    '<h4><small style="font-size:15px"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="30" width="30">'+
+                    '<image x="0" y="10" width="30" height="30" xlink:href="../fonts/SVG/sunset.svg" /></svg> '+
+                    timeConverterHour(today.sunsetTime)+'</small><small style="font-size:13px">h</small></h4>'+
+                '</div>'+
+                '<div class="col-lg-5" id="day-dewpoint">'+
+                    '<h4><small style="font-size:15px">Point de rosée : '+(today.dewPoint)+'</small><small style="font-size:13px">°C</small></h4>'+
+                    '<h4><small style="font-size:15px">'+getLuneName(today.moonPhase)+'</small></h4>'+
+                '</div>'+
+            '</div>'+
+        '</div>'+
+        //FOOTER
+        '<div class="modal-footer">'+
+            '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'+
+        '</div>'+
+    '</div>'+
+'</div>';
+
+    $('#dayXmodal').empty();
+    $('#dayXmodal').append(modal);
+    $("#dayXmodal").modal("show");
+
+}
+
+
+
+function getHourColor(icon){
+    if(icon == "clear-day"){
+        return "background-color:rgba(255,255,0,0.3)";
+    } 
+    else if(icon == "clear-night"){
+        return "background-color:rgba(77,77,219,0.3)";
+    } 
+    else if(icon == "rain"){
+        return "background-color:rgba(255,255,0,0.3)";
+    } 
+    else if(icon == "snow"){
+        return "background-color:rgba(205,205,205,0.5)";
+    } 
+    else if(icon == "sleet"){
+        return "background-color:rgba(205,205,205,0.8)";
+    } 
+    else if(icon == "wind"){
+        return "background-color:rgba(255,255,0,0.3)";
+    }   
+    else if(icon == "fog"){
+        return "background-color:rgba(192,192,192,0.5)";
+    }
+    else if(icon == "cloudy"){
+        return "background-color:rgba(192,192,192,0.8)";
+    } 
+    else if(icon == "partly-cloudy-day"){
+        return "background-color:rgba(192,192,192,0.4)";
+    } 
+    else if(icon == "partly-cloudy-night"){
+        return "background-color:rgba(37,37,150,0.5)";
+    } 
+}
+
+function getLuneName(lune){
+    if(lune == 0){
+        return "Nouvelle Lune";
+    }
+    else if (lune < 0.25){
+        return "Lune croissante";
+    }
+    else if(lune == 0.25){
+        return "Premier quartier de Lune";
+    }
+    else if ((lune > 0.25) || (lune < 0.5)){
+        return "Lune Gibbeuse croissante";
+    }
+    else if(lune == 0.5){
+        return "Pleine Lune";
+    }
+    else if ((lune > 0.5) || (lune < 0.75)){
+        return "Lune Gibbeuse decroissante";
+    }
+    else if(lune == 0.75){
+        return "Dernier quartier de Lune";
+    }
+    else if (lune > 0.75){
+        return "Lune decroissante";
+    }
+}
+
+function avgTempDay(hourly){
+    var temp=0;
+    for (var i=0; i<24; i++){
+        temp += hourly.data[i].temperature;
+    }
+    return Math.round((temp/24)*10)/10;
+}
+
+
+function avgTempRessentiDay(hourly){
+    var temp=0;
+    for (var i=0; i<24; i++){
+        temp += hourly.data[i].apparentTemperature;
+    }
+    return Math.round((temp/24)*10)/10;
+}
+
+function getCouverture(cover){
+    if (cover <=0.15){
+        return "Ciel dégagé";
+    }
+    else if ((cover >=0.15)||(cover <= 0.50)) {
+        return "Nuages épars";
+    }
+    else if ((cover >=0.50)||(cover <= 0.75)) {
+        return "Ciel nuageux";
+    }
+    else if (cover >=0.75) {
+        return "Ciel couvert";
+    }
+}
+
+function tradPrecType(type){
+    if (typeof type === 'undefined') { 
+        return "";
+    }
+    else if (type == "rain"){
+        return "Pluie";
+    }
+    else if (type == "snow"){
+        return "Neige";
+    }
+    else if (type == "sleet"){
+        return "Pluie verglaçante";
+    }
+    else if (type == "hail"){
+        return "Grêle";
+    }
+}
+
+
+function timeConverterHour(UNIX_timestamp){
+    if (typeof UNIX_timestamp === 'undefined') { 
+        return "";
+    }
+    var a = new Date(UNIX_timestamp * 1000);
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var time = hour + ':' + min ;
+    return time;
+}
+
+function getIconWindBearing(windBearing){
+    var nb =  Math.round(windBearing/45);
+    return 'wind-'+(nb-1)+'.svg';
+
+}
+
+function timeConverterDay(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var jour = new Array( "Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi" );
+    console.log(jour[a.getDay()]);
+    return jour[a.getDay()];
+}
+
+function timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    //var sec = a.getSeconds();
+    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min ;//+ ':' + sec ;
+}
+</script>
