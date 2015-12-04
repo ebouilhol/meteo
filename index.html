@@ -63,6 +63,7 @@
                 </span>
             </div>
         </div>
+        <div id="alert"></div>
         <!-- heading -->
         <div class="row">
             <div class="col-lg-12">
@@ -76,25 +77,33 @@
             <div class="col-sm-3 col-xs-6">
                 <div id="lempdes" class="panel panel-default">
                     <div class="panel-heading" id="lempdes-h"></div>
-                    <div class="panel-body" id="lempdes-b"></div>
+                    <button type="button" class="btn btn-block" style="background : transparent">
+                        <div class="panel-body" id="lempdes-b"></div>
+                    </button>
                 </div>
             </div>
             <div class="col-sm-3 col-xs-6">
                 <div id="colombes" class="panel panel-default">
                     <div class="panel-heading" id="colombes-h"></div>
-                    <div class="panel-body" id="colombes-b"></div>
+                    <button type="button" class="btn btn-block" style="background : transparent">
+                        <div class="panel-body" id="colombes-b"></div>
+                    </button>
                 </div>
             </div>
             <div class="col-sm-3 col-xs-6">
                 <div id="voiron" class="panel panel-default">
                     <div class="panel-heading" id="voiron-h"></div>
-                    <div class="panel-body" id="voiron-b"></div>
+                    <button type="button" class="btn btn-block" style="background : transparent">
+                        <div class="panel-body" id="voiron-b"></div>
+                    </button>
                 </div>
             </div>
             <div class="col-sm-3 col-xs-6">
                 <div id="marin" class="panel panel-default">
                     <div class="panel-heading" id="marin-h"></div>
-                    <div class="panel-body" id="marin-b"></div>
+                    <button type="button" class="btn btn-block" style="background : transparent">
+                        <div class="panel-body" id="marin-b"></div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -102,19 +111,25 @@
             <div class="col-sm-3 col-xs-6">
                 <div id="merignac" class="panel panel-default">
                     <div class="panel-heading" id="merignac-h"></div>
-                    <div class="panel-body" id="merignac-b"></div>
+                    <button type="button" class="btn btn-block" style="background : transparent">
+                        <div class="panel-body" id="merignac-b"></div>
+                    </button>
                 </div>
             </div>
             <div class="col-sm-3 col-xs-6">
                 <div id="bonhomme" class="panel panel-default">
                     <div class="panel-heading" id="bonhomme-h"></div>
-                    <div class="panel-body" id="bonhomme-b"></div>
+                    <button type="button" class="btn btn-block" style="background : transparent">
+                        <div class="panel-body" id="bonhomme-b"></div>
+                    </button>
                 </div>
             </div>
             <div class="col-sm-3 col-xs-6">
                 <div id="ussel" class="panel panel-default">
                     <div class="panel-heading" id="ussel-h"></div>
-                    <div class="panel-body" id="ussel-b"></div>
+                    <button type="button" class="btn btn-block" style="background : transparent">
+                        <div class="panel-body" id="ussel-b"></div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -171,133 +186,138 @@ $(document).ready(function() {
 
     $.getJSON('data/meteodataLempdes.json', function(data) {
         //data.currently
+        console.log(getColor(data.currently.icon));
+        $('#lempdes-b').css('background-color', getColor(data.currently.icon));
         $('#lempdes-h').html('<div class="row"><h5><small style="font-size:18px;vertical-align:center"> <div class="col-sm-8">Lempdes</div>'+
             '<div class="col-sm-4">'+timeConverterHour(data.currently.time)+'0h</small></h5></div></div></div>');
         $('#lempdes-b').html('<div class="row">'+
-                '<div class="col-sm-4">'+
+                '<div class="col-sm-5">'+
                     '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
                     '<image x="" y="0" width="50" height="50" xlink:href="fonts/SVG/'+ data.currently.icon+'.svg" />'+
                     '</svg></div><div class="col-sm-5">'+
-                    '<h3><small style="font-size:20px">'+data.currently.temperature+' °C</h3></small>'+
-                '</div><div class="col-sm-3">'+
-                    '<h3><small style="font-size:10px">'+data.currently.apparentTemperature+' °C</h3></small>'+
-                '</div></div><div class="row"><div class="col-sm-5">'+
-                    '<h3><small style="font-size:14px"> Pluie : '+(data.currently.precipProbability*100)+'%</h3></small>'+
                 '</div><div class="col-sm-7">'+
-                    '<h3><small style="font-size:14px"> Humidité : '+(data.currently.humidity*100)+'%</h3></small>'+
+                    '<h3><small style="font-size:20px">'+formatData10(data.currently.temperature)+' °C</h3></small>'+
+                '</div></div>'+
+                '<div class="row"><div class="col-sm-5">'+
+                    '<h3><small style="font-size:14px"> Pluie : '+formatData10(data.currently.precipProbability*100)+'%</h3></small>'+
+                '</div><div class="col-sm-7">'+
+                    '<h3><small style="font-size:14px"> Humidité : '+formatData10(data.currently.humidity*100)+'%</h3></small>'+
                 '</div></div>');
     });
 
     $.getJSON('data/meteodataColombes.json', function(data) {
+        $('#colombes-b').css('background-color', getColor(data.currently.icon));
         $('#colombes-h').html('<div class="row"><h5><small style="font-size:18px;vertical-align:center"> <div class="col-sm-8">Colombes</div>'+
             '<div class="col-sm-4">'+timeConverterHour(data.currently.time)+'0h</small></h5></div></div></div>');
         $('#colombes-b').html('<div class="row">'+
-                '<div class="col-sm-4">'+
+                '<div class="col-sm-5">'+
                     '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
                     '<image x="" y="0" width="50" height="50" xlink:href="fonts/SVG/'+ data.currently.icon+'.svg" />'+
                     '</svg></div><div class="col-sm-5">'+
-                    '<h3><small style="font-size:20px">'+data.currently.temperature+' °C</h3></small>'+
-                '</div><div class="col-sm-3">'+
-                    '<h3><small style="font-size:10px">'+data.currently.apparentTemperature+' °C</h3></small>'+
-                '</div></div><div class="row"><div class="col-sm-5">'+
-                    '<h3><small style="font-size:14px"> Pluie : '+(data.currently.precipProbability*100)+'%</h3></small>'+
                 '</div><div class="col-sm-7">'+
-                    '<h3><small style="font-size:14px"> Humidité : '+(data.currently.humidity*100)+'%</h3></small>'+
+                    '<h3><small style="font-size:20px">'+formatData10(data.currently.temperature)+' °C</h3></small>'+
+                '</div></div>'+
+                '<div class="row"><div class="col-sm-5">'+
+                    '<h3><small style="font-size:14px"> Pluie : '+formatData10(data.currently.precipProbability*100)+'%</h3></small>'+
+                '</div><div class="col-sm-7">'+
+                    '<h3><small style="font-size:14px"> Humidité : '+formatData10(data.currently.humidity*100)+'%</h3></small>'+
                 '</div></div>');
     });
 
     $.getJSON('data/meteodataVoiron.json', function(data) {
+        $('#voiron-b').css('background-color', getColor(data.currently.icon));
         $('#voiron-h').html('<div class="row"><h5><small style="font-size:18px;vertical-align:center"> <div class="col-sm-8">Tullins</div>'+
             '<div class="col-sm-4">'+timeConverterHour(data.currently.time)+'0h</small></h5></div></div></div>');
         $('#voiron-b').html('<div class="row">'+
-                '<div class="col-sm-4">'+
+                '<div class="col-sm-5">'+
                     '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
                     '<image x="" y="0" width="50" height="50" xlink:href="fonts/SVG/'+ data.currently.icon+'.svg" />'+
                     '</svg></div><div class="col-sm-5">'+
-                    '<h3><small style="font-size:20px">'+data.currently.temperature+' °C</h3></small>'+
-                '</div><div class="col-sm-3">'+
-                    '<h3><small style="font-size:10px">'+data.currently.apparentTemperature+' °C</h3></small>'+
-                '</div></div><div class="row"><div class="col-sm-5">'+
-                    '<h3><small style="font-size:14px"> Pluie : '+(data.currently.precipProbability*100)+'%</h3></small>'+
                 '</div><div class="col-sm-7">'+
-                    '<h3><small style="font-size:14px"> Humidité : '+(data.currently.humidity*100)+'%</h3></small>'+
+                    '<h3><small style="font-size:20px">'+formatData10(data.currently.temperature)+' °C</h3></small>'+
+                '</div></div>'+
+                '<div class="row"><div class="col-sm-5">'+
+                    '<h3><small style="font-size:14px"> Pluie : '+formatData10(data.currently.precipProbability*100)+'%</h3></small>'+
+                '</div><div class="col-sm-7">'+
+                    '<h3><small style="font-size:14px"> Humidité : '+formatData10(data.currently.humidity*100)+'%</h3></small>'+
                 '</div></div>');
     });
 
     $.getJSON('data/meteodataMarin.json', function(data) {
+        $('#marin-b').css('background-color', getColor(data.currently.icon));
         $('#marin-h').html('<div class="row"><h5><small style="font-size:18px;vertical-align:center"> <div class="col-sm-8">Le Marin</div>'+
             '<div class="col-sm-4">'+timeConverterHour(data.currently.time)+'0h</small></h5></div></div></div>');
         $('#marin-b').html('<div class="row">'+
-                '<div class="col-sm-4">'+
+                '<div class="col-sm-5">'+
                     '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
                     '<image x="" y="0" width="50" height="50" xlink:href="fonts/SVG/'+ data.currently.icon+'.svg" />'+
                     '</svg></div><div class="col-sm-5">'+
-                    '<h3><small style="font-size:20px">'+data.currently.temperature+' °C</h3></small>'+
-                '</div><div class="col-sm-3">'+
-                    '<h3><small style="font-size:10px">'+data.currently.apparentTemperature+' °C</h3></small>'+
-                '</div></div><div class="row"><div class="col-sm-5">'+
-                    '<h3><small style="font-size:14px"> Pluie : '+(data.currently.precipProbability*100)+'%</h3></small>'+
                 '</div><div class="col-sm-7">'+
-                    '<h3><small style="font-size:14px"> Humidité : '+(data.currently.humidity*100)+'%</h3></small>'+
+                    '<h3><small style="font-size:20px">'+formatData10(data.currently.temperature)+' °C</h3></small>'+
+                '</div></div>'+
+                '<div class="row"><div class="col-sm-5">'+
+                    '<h3><small style="font-size:14px"> Pluie : '+formatData10(data.currently.precipProbability*100)+'%</h3></small>'+
+                '</div><div class="col-sm-7">'+
+                    '<h3><small style="font-size:14px"> Humidité : '+formatData10(data.currently.humidity*100)+'%</h3></small>'+
                 '</div></div>');
     });
 
     $.getJSON('data/meteodataMerignac.json', function(data) {
+        $('#merignac-b').css('background-color', getColor(data.currently.icon));
         $('#merignac-h').html('<div class="row"><h5><small style="font-size:18px;vertical-align:center"> <div class="col-sm-8">Merignac</div>'+
             '<div class="col-sm-4">'+timeConverterHour(data.currently.time)+'0h</small></h5></div></div></div>');
         $('#merignac-b').html('<div class="row">'+
-                '<div class="col-sm-4">'+
+                '<div class="col-sm-5">'+
                     '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
                     '<image x="" y="0" width="50" height="50" xlink:href="fonts/SVG/'+ data.currently.icon+'.svg" />'+
                     '</svg></div><div class="col-sm-5">'+
-                    '<h3><small style="font-size:20px">'+data.currently.temperature+' °C</h3></small>'+
-                '</div><div class="col-sm-3">'+
-                    '<h3><small style="font-size:10px">'+data.currently.apparentTemperature+' °C</h3></small>'+
-                '</div></div><div class="row"><div class="col-sm-5">'+
-                    '<h3><small style="font-size:14px"> Pluie : '+(data.currently.precipProbability*100)+'%</h3></small>'+
                 '</div><div class="col-sm-7">'+
-                    '<h3><small style="font-size:14px"> Humidité : '+(data.currently.humidity*100)+'%</h3></small>'+
+                    '<h3><small style="font-size:20px">'+formatData10(data.currently.temperature)+' °C</h3></small>'+
+                '</div></div>'+
+                '<div class="row"><div class="col-sm-5">'+
+                    '<h3><small style="font-size:14px"> Pluie : '+formatData10(data.currently.precipProbability*100)+'%</h3></small>'+
+                '</div><div class="col-sm-7">'+
+                    '<h3><small style="font-size:14px"> Humidité : '+formatData10(data.currently.humidity*100)+'%</h3></small>'+
                 '</div></div>');
     });
 
     $.getJSON('data/meteodataBonhom.json', function(data) {
+        $('#bonhomme-b').css('background-color', getColor(data.currently.icon));
         $('#bonhomme-h').html('<div class="row"><h5><small style="font-size:18px;vertical-align:center"> <div class="col-sm-8">Le Bonhomme</div>'+
             '<div class="col-sm-4">'+timeConverterHour(data.currently.time)+'0h</small></h5></div></div></div>');
         $('#bonhomme-b').html('<div class="row">'+
-                '<div class="col-sm-4">'+
+                '<div class="col-sm-5">'+
                     '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
                     '<image x="" y="0" width="50" height="50" xlink:href="fonts/SVG/'+ data.currently.icon+'.svg" />'+
                     '</svg></div><div class="col-sm-5">'+
-                    '<h3><small style="font-size:20px">'+data.currently.temperature+' °C</h3></small>'+
-                '</div><div class="col-sm-3">'+
-                    '<h3><small style="font-size:10px">'+data.currently.apparentTemperature+' °C</h3></small>'+
-                '</div></div><div class="row"><div class="col-sm-5">'+
-                    '<h3><small style="font-size:14px"> Pluie : '+(data.currently.precipProbability*100)+'%</h3></small>'+
                 '</div><div class="col-sm-7">'+
-                    '<h3><small style="font-size:14px"> Humidité : '+(data.currently.humidity*100)+'%</h3></small>'+
+                    '<h3><small style="font-size:20px">'+formatData10(data.currently.temperature)+' °C</h3></small>'+
+                '</div></div>'+
+                '<div class="row"><div class="col-sm-5">'+
+                    '<h3><small style="font-size:14px"> Pluie : '+formatData10(data.currently.precipProbability*100)+'%</h3></small>'+
+                '</div><div class="col-sm-7">'+
+                    '<h3><small style="font-size:14px"> Humidité : '+formatData10(data.currently.humidity*100)+'%</h3></small>'+
                 '</div></div>');
     });
 
     $.getJSON('data/meteodataUssel.json', function(data) {
+        $('#ussel-b').css('background-color', getColor(data.currently.icon));
         $('#ussel-h').html('<div class="row"><h5><small style="font-size:18px;vertical-align:center"> <div class="col-sm-8">Ussel</div>'+
             '<div class="col-sm-4">'+timeConverterHour(data.currently.time)+'0h</small></h5></div></div></div>');
         $('#ussel-b').html('<div class="row">'+
-                '<div class="col-sm-4">'+
+                '<div class="col-sm-5">'+
                     '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="50" width="50">'+
                     '<image x="" y="0" width="50" height="50" xlink:href="fonts/SVG/'+ data.currently.icon+'.svg" />'+
                     '</svg></div><div class="col-sm-5">'+
-                    '<h3><small style="font-size:20px">'+data.currently.temperature+' °C</h3></small>'+
-                '</div><div class="col-sm-3">'+
-                    '<h3><small style="font-size:10px">'+data.currently.apparentTemperature+' °C</h3></small>'+
-                '</div></div><div class="row"><div class="col-sm-5">'+
-                    '<h3><small style="font-size:14px"> Pluie : '+(data.currently.precipProbability*100)+'%</h3></small>'+
                 '</div><div class="col-sm-7">'+
-                    '<h3><small style="font-size:14px"> Humidité : '+(data.currently.humidity*100)+'%</h3></small>'+
+                    '<h3><small style="font-size:20px">'+formatData10(data.currently.temperature)+' °C</h3></small>'+
+                '</div></div>'+
+                '<div class="row"><div class="col-sm-5">'+
+                    '<h3><small style="font-size:14px"> Pluie : '+formatData10(data.currently.precipProbability*100)+'%</h3></small>'+
+                '</div><div class="col-sm-7">'+
+                    '<h3><small style="font-size:14px"> Humidité : '+formatData10(data.currently.humidity*100)+'%</h3></small>'+
                 '</div></div>');
     });
-
-
-
 
 });
 
@@ -326,39 +346,48 @@ $(document).on("click", "#ussel", function(e){
 });
 
 
-function getHourColor(icon){
+function getColor(icon){
     if(icon == "clear-day"){
-        return "background-color:rgba(255,255,0,0.3)";
+        return "rgba(255,255,0,0.3)";
     } 
     else if(icon == "clear-night"){
-        return "background-color:rgba(77,77,219,0.3)";
+        return "rgba(77,77,219,0.3)";
     } 
     else if(icon == "rain"){
-        return "background-color:rgba(255,255,0,0.3)";
+        return "rgba(255,255,255,0.3)";
     } 
     else if(icon == "snow"){
-        return "background-color:rgba(205,205,205,0.5)";
+        return "rgba(205,205,205,0.5)";
     } 
     else if(icon == "sleet"){
-        return "background-color:rgba(205,205,205,0.8)";
+        return "rgba(205,205,205,0.8)";
     } 
     else if(icon == "wind"){
-        return "background-color:rgba(255,255,0,0.3)";
+        return "rgba(255,255,0,0.3)";
     }   
     else if(icon == "fog"){
-        return "background-color:rgba(192,192,192,0.5)";
+        return "rgba(192,192,192,0.5)";
     }
     else if(icon == "cloudy"){
-        return "background-color:rgba(192,192,192,0.8)";
+        return "rgba(192,192,192,0.8)";
     } 
     else if(icon == "partly-cloudy-day"){
-        return "background-color:rgba(192,192,192,0.4)";
+        return "rgba(192,192,192,0.4)";
     } 
     else if(icon == "partly-cloudy-night"){
-        return "background-color:rgba(37,37,150,0.5)";
+        return "rgba(37,37,150,0.5)";
     } 
 }
 
+
+function formatData10(data){
+    return Math.round(data*10)/10;
+}
+
+
+function formatData100(data){
+    return Math.round(data*100)/100;
+}
 
 function avgTempDay(hourly){
     var temp=0;
