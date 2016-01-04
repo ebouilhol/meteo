@@ -44,9 +44,28 @@ echo'<body>
 					<th>Offré(??)</th>
 				</tr>
 			</thead>
-		<tbody>';
+			<tbody>
+				<tr>
+					<td>Caro</td>
+					<td>Belinda</td>
+				</tr><tr>
+					<td>Armelle</td>
+					<td>Manu</td>
+				</tr><tr>
+					<td>Belinda</td>
+					<td>Armelle</td>
+				</tr><tr>
+					<td>Julien</td>
+					<td>Caro</td>
+				</tr><tr>
+					<td>Manu</td>
+					<td>Julien</td>
+				</tr>';
+	echo'		</tbody>
+		</table>
+	</div>';
 
-$participants = 5;
+/*$participants = 5;
 $noms = ["","Caro", "Armelle", "Belinda", "Julien", "Manu"];
 
 $exlude1 = array();
@@ -73,10 +92,7 @@ for ($personne=1; $personne <= $participants; $personne++){
 				<td>'.$noms[$chapeau[$papier]].'</td>
 			</tr>';
 }
-
-echo'		</tbody>
-	</table>
-</div>';
+*/
 
 
 // function show_array($array){
